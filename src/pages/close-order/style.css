@@ -1,0 +1,35 @@
+.content-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.content-details p {
+    color: #A9B1B8;
+    font-size: 16px;
+    margin: 0px;
+}
+
+.details, .conclusion {
+    display: flex;
+}
+
+.close-content {
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.conclusion {
+    justify-content: space-between;
+    border-top: 1px solid #D9D9D9;
+    margin-top: 25px;
+    padding-top: 25px;
+}
+
+.conclusion h4 {
+    margin: 0px;
+}
+
+.number-order p {
+    color: #791D8F;
+}

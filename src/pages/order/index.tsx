@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
-import './style.css'; 
+import './style.css';
 import CloseOrder from '../close-order';
+import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, Checkbox } from '@mui/material';
 
 const Order: React.FC = () => {
   const [step, setStep] = useState(1);
   const [sizeValue, setSizeValue] = useState<number | null>(null);
   const [fruitValue, setFruitValue] = useState<number | null>(null);
   const [toppings, setToppings] = useState<string[]>([]);
+  const [prevision, setPrevision] = useState(0);
 
   const handleToppingChange = (topping: string) => {
-    setToppings(prevToppings => 
+    setToppings((prevToppings) =>
       prevToppings.includes(topping)
-        ? prevToppings.filter(t => t !== topping)
+        ? prevToppings.filter((t) => t !== topping)
         : [...prevToppings, topping]
     );
   };
@@ -31,142 +33,93 @@ const Order: React.FC = () => {
         <>
           <div className="image-content">
             {step > 1 && <button onClick={() => setStep(step - 1)}>Voltar</button>}
-            {step < 3 && <button onClick={() => setStep(step + 1)}>Próximo</button>}
-            {step === 3 && <button onClick={() => setStep(4)}>Fechar pedido</button>}
           </div>
           <div className="content-informations">
             <h1>Açaí Natural</h1>
             <p>Super Copo de 500 ml de Açaí Tradicional - Atenção: Contém somente açaí puro! Ideal para quem gosta de aproveitar um açaí puro ou rechear do seu jeito! Obs: não trocamos nem adicionamos itens a esse copo!</p>
 
             {step === 1 && (
-              <div>
-                <h3>Escolha o tamanho</h3>
-                <p>Escolha pelo menos 1 opção</p>
-                <div>
-                  <label>
-                    <input
-                      type="radio"
-                      value="18"
-                      checked={sizeValue === 18}
-                      onChange={() => setSizeValue(18)}
-                    />
-                    Pequeno - 300ml <span>R$18</span>
-                  </label>
-                </div>
-                <div>
-                  <label>
-                    <input
-                      type="radio"
-                      value="20"
-                      checked={sizeValue === 20}
-                      onChange={() => setSizeValue(20)}
-                    />
-                    Médio - 500ml <span>R$20</span>
-                  </label>
-                </div>
-                <div>
-                  <label>
-                    <input
-                      type="radio"
-                      value="22"
-                      checked={sizeValue === 22}
-                      onChange={() => setSizeValue(22)}
-                    />
-                    Grande - 700ml <span>R$22</span>
-                  </label>
-                </div>
-              </div>
+              <FormControl component="fieldset">
+                <FormLabel component="legend">Escolha o tamanho</FormLabel>
+                <RadioGroup
+                  value={sizeValue}
+                  onChange={(e) => {
+                    const value = parseInt(e.target.value, 10);
+                    setSizeValue(value);
+                    setPrevision(value === 18 ? 5 : value === 20 ? 7 : 9);
+                  }}
+                >
+                  <FormControlLabel value={18} control={<Radio />} label="Pequeno - 300ml R$18" />
+                  <FormControlLabel value={20} control={<Radio />} label="Médio - 500ml R$20" />
+                  <FormControlLabel value={22} control={<Radio />} label="Grande - 700ml R$22" />
+                </RadioGroup>
+              </FormControl>
             )}
 
             {step === 2 && (
-              <div>
-                <h3>Escolha uma fruta</h3>
-                <p>Escolha pelo menos 1 opção</p>
-                <div>
-                  <label>
-                    <input
-                      type="radio"
-                      value="0"
-                      checked={fruitValue === 0}
-                      onChange={() => setFruitValue(0)}
-                    />
-                    Banana <span>+ R$0</span>
-                  </label>
-                </div>
-                <div>
-                  <label>
-                    <input
-                      type="radio"
-                      value="4"
-                      checked={fruitValue === 4}
-                      onChange={() => setFruitValue(4)}
-                    />
-                    Morango <span>+ R$4</span>
-                  </label>
-                </div>
-                <div>
-                  <label>
-                    <input
-                      type="radio"
-                      value="2"
-                      checked={fruitValue === 2}
-                      onChange={() => setFruitValue(2)}
-                    />
-                    Kiwi <span>+ R$2</span>
-                  </label>
-                </div>
-              </div>
+              <FormControl component="fieldset">
+                <FormLabel component="legend">Escolha uma fruta</FormLabel>
+                <RadioGroup
+                  value={fruitValue}
+                  onChange={(e) => setFruitValue(parseInt(e.target.value, 10))}
+                >
+                  <FormControlLabel value={0} control={<Radio />} label="Banana + R$0" />
+                  <FormControlLabel value={4} control={<Radio />} label="Morango + R$4" />
+                  <FormControlLabel value={2} control={<Radio />} label="Kiwi + R$2" />
+                </RadioGroup>
+              </FormControl>
             )}
 
             {step === 3 && (
               <div>
                 <h3>Escolha complementos</h3>
                 <p>Escolha até 3 opções</p>
-                <div>
-                  <label>
-                    <input
-                      type="checkbox"
+                <FormControlLabel
+                  control={
+                    <Checkbox
                       checked={toppings.includes('granola')}
                       onChange={() => handleToppingChange('granola')}
                     />
-                    Granola <span>+ R$3</span>
-                  </label>
-                </div>
-                <div>
-                  <label>
-                    <input
-                      type="checkbox"
+                  }
+                  label="Granola + R$3"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
                       checked={toppings.includes('pacoca')}
                       onChange={() => handleToppingChange('pacoca')}
                     />
-                    Paçoca <span>+ R$5</span>
-                  </label>
-                </div>
-                <div>
-                  <label>
-                    <input
-                      type="checkbox"
+                  }
+                  label="Paçoca + R$5"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
                       checked={toppings.includes('leite-ninho')}
                       onChange={() => handleToppingChange('leite-ninho')}
                     />
-                    Leite Ninho <span>+ R$4</span>
-                  </label>
-                </div>
+                  }
+                  label="Leite Ninho + R$4"
+                />
               </div>
             )}
-            <h2>Total: R${total.toFixed(2)}</h2>
+
+            <div className="buttons-order">
+              <h2>Total: R${total.toFixed(2)}</h2>
+              {step < 3 && <button onClick={() => setStep(step + 1)}>Próximo</button>}
+              {step === 3 && <button onClick={() => setStep(4)}>Fechar pedido</button>}
+            </div>
           </div>
         </>
       )}
 
       {step === 4 && (
         <>
-          <CloseOrder sizeValue={sizeValue} fruitValue={fruitValue} toppings={toppings}/>
+          <CloseOrder sizeValue={sizeValue} fruitValue={fruitValue} toppings={toppings} prevision={prevision} />
           <button onClick={() => setStep(step - 1)}>Voltar</button>
           <button onClick={() => alert('pedido efetuado com sucesso!')}>Fechar pedido</button>
         </>
       )}
-      
     </div>
   );
 };

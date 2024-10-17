@@ -26,4 +26,22 @@
     margin-top: 10px;
     border-radius: 8px;
 }
+
+.buttons-order {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.buttons-order button {
+    border: 1px solid #B54FCE;
+    border-radius: 8px;
+    color: #FFFFFF;
+    background-color: #791D8F;
+    cursor: pointer;
+    width: 25%;
+    font-size: 16px;
+    height: 35px;
+}
+
   
