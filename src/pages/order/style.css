@@ -1,0 +1,29 @@
+#content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    background-color: #F0F0F0;
+    min-height: 90vh;
+}
+  
+.image-content {
+    background-size: cover;
+    background-position: center;
+    width: 500px;
+    height: 300px;
+    background-image: url("https://th.bing.com/th/id/R.d2db326f6c0983424422b5a65e24852b?rik=8UdmbnRFw%2bkNyg&pid=ImgRaw&r=0");
+    border-radius: 8px;
+    margin-top: 50px;
+}
+
+.content-informations {
+    display: flex;
+    flex-direction: column;
+    background-color: #FFFFFF;
+    width: 470px;
+    padding: 5px 15px;
+    margin-top: 10px;
+    border-radius: 8px;
+}
+  
