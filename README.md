@@ -9,8 +9,3 @@ npm install
 ```bash
 npm start
 ```
-
-- Rodar testes
-```bash
-npm test
-```
