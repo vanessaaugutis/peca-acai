@@ -20,6 +20,7 @@ const Order: React.FC = () => {
     setPrevision,
     setToppings,
     setTotal,
+    id,
     navigate,
     control,
     handleSubmit,
@@ -27,7 +28,8 @@ const Order: React.FC = () => {
     setStep,
     isNextButtonDisabled,
     calculateTotal,
-    onSubmit
+    onSubmit,
+    returnHome
   } = useOrderForm();
 
   return (
@@ -90,7 +92,7 @@ const Order: React.FC = () => {
                         field.onChange(value);
                       }}
                     >
-                      <FormControlLabel value={0} control={<Radio />} label="Banana + R$0" />
+                      <FormControlLabel value={1} control={<Radio />} label="Banana + R$1" />
                       <FormControlLabel value={4} control={<Radio />} label="Morango + R$4" />
                       <FormControlLabel value={2} control={<Radio />} label="Kiwi + R$2" />
                     </RadioGroup>
@@ -170,10 +172,17 @@ const Order: React.FC = () => {
 
       {step === 4 && (
         <>
-          <CloseOrder sizeValue={sizeValue} fruitValue={fruitValue} toppings={toppings} prevision={prevision} />
+          <h1>Meus pedidos</h1>
+          <h2>Pedidos ativos</h2>
+          <CloseOrder sizeValue={sizeValue} fruitValue={fruitValue} toppings={toppings} prevision={prevision} id={id}/>
           <div className="buttons-close">
-            <button onClick={() => setStep(step - 1)}>Voltar</button>
-            <button onClick={handleSubmit(onSubmit)}>Fechar pedido</button>
+            {!id && 
+              <>
+                <button onClick={() => setStep(step - 1)}>Voltar</button>
+                <button onClick={handleSubmit(onSubmit)}>Fechar pedido</button>
+              </>
+            }
+            {id && <button onClick={returnHome}>OK</button>}
           </div>
         </>
       )}

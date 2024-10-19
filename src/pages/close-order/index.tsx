@@ -6,9 +6,10 @@ interface CloseOrderProps {
   fruitValue: number | null;
   toppings: string[];
   prevision: number | 0;
+  id?: string | undefined
 }
 
-const CloseOrder: React.FC<CloseOrderProps> = ({ sizeValue, fruitValue, toppings, prevision }) => {
+const CloseOrder: React.FC<CloseOrderProps> = ({ sizeValue, fruitValue, toppings, prevision, id }) => {
   const sizeNames: { [key: number]: string } = {
     18: "Pequeno - 300ml",
     20: "Médio - 500ml",
@@ -38,8 +39,6 @@ const CloseOrder: React.FC<CloseOrderProps> = ({ sizeValue, fruitValue, toppings
 
   return (
     <div className="content-details">
-      <h1>Meus pedidos</h1>
-      <h2>Pedidos ativos</h2>
       <div className="close-content">
         <div className="details">
           <div>
@@ -57,9 +56,11 @@ const CloseOrder: React.FC<CloseOrderProps> = ({ sizeValue, fruitValue, toppings
             <p>- {fruitValue ? fruitNames[fruitValue] : "Nenhuma selecionada"}</p>
             <p>- {toppings.length > 0 ? toppings.map(t => toppingNames[t]).join(", ") : "Nenhum selecionado"}</p>
           </div>
-          <div className="number-order">
-            <p>Número do pedido</p>
-          </div>
+          {id &&
+            <div className="number-order">
+              <p>#{id}</p>
+            </div>
+          }
           
         </div>
         <div className="conclusion">

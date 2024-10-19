@@ -33,3 +33,9 @@
 .number-order p {
     color: #791D8F;
 }
+
+@media (min-width: 1024px) {
+    .content-details {
+        width: 700px;
+    }
+}

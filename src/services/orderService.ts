@@ -10,16 +10,14 @@ interface Order {
 }
 
 interface OrderResponse {
-  orderId: number;
+  id: string;
   message: string;
-  estimatedTime: number;
+  prevision: number;
 }
 
 export const createOrder = async (order: Order): Promise<OrderResponse> => {
-  const arrayOrder = [];
-  arrayOrder.push(order);
   try {
-    const response = await api.post<OrderResponse>("/orders", arrayOrder);
+    const response = await api.post<OrderResponse>("order", order);
     return response.data;
   } catch (error) {
     console.error("Erro para criar pedido", error);
@@ -29,7 +27,7 @@ export const createOrder = async (order: Order): Promise<OrderResponse> => {
 
 export const listOrders = async (): Promise<Order[]> => {
     try {
-      const response = await api.get<Order[]>("/orders");
+      const response = await api.get<Order[]>("/order");
       return response.data;
     } catch (error) {
       console.error("Erro para carregar pedidos", error);

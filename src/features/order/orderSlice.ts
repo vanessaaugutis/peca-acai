@@ -6,6 +6,7 @@ interface OrderState {
   toppings: string[];
   total: number;
   prevision: number;
+  id?: string
 }
 
 const initialState: OrderState = {
@@ -35,11 +36,14 @@ const orderSlice = createSlice({
     setTotal(state, action: PayloadAction<number>) {
         state.total = action.payload;
       },
+    setId(state, action: PayloadAction<string>) {
+        state.id = action.payload;
+      },
     resetOrder(state) {
       return initialState;
     },
   },
 });
 
-export const { setSizeValue, setFruitValue, setToppings, setPrevision, setTotal, resetOrder } = orderSlice.actions;
+export const { setSizeValue, setFruitValue, setToppings, setPrevision, setTotal, setId, resetOrder } = orderSlice.actions;
 export default orderSlice.reducer;

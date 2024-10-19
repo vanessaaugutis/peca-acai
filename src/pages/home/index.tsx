@@ -1,16 +1,21 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "./style"
+import { Button, Content } from "./style"
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const navigateOrder = () => {
     navigate("/order");
   }
+  const navigateOrders = () => {
+    navigate("/orders");
+  }
   return (
-    <div id="content">
+    <Content>
+      <h1>Bem-vindo! Peça seu açaí e fique atualizado com seu pedido.</h1>
       <Button onClick={navigateOrder}>Criar pedido</Button>
-    </div>
+      <Button onClick={navigateOrders}>Ver pedidos</Button>
+    </Content>
   );
 };
 

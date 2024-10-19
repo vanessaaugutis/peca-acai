@@ -6,7 +6,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { createOrder } from "../../services/orderService";
-import { setSizeValue, setFruitValue, setToppings, setPrevision, setTotal, resetOrder } from "../../features/order/orderSlice";
+import { setSizeValue, setFruitValue, setToppings, setPrevision, setTotal, setId, resetOrder } from "../../features/order/orderSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -23,6 +23,7 @@ export interface OrderInterface {
   toppings: string[];
   prevision: number;
   total: number;
+  id?: string
 }
 
 export interface OrderState {
@@ -32,7 +33,7 @@ export interface OrderState {
 const useOrderForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { sizeValue, fruitValue, toppings, prevision, total } = useSelector((state: OrderState) => state.order);
+  const { sizeValue, fruitValue, toppings, prevision, total, id } = useSelector((state: OrderState) => state.order);
   const { control, handleSubmit, formState: { errors } } = useForm({
     resolver: zodResolver(orderSchema)
   });
@@ -72,12 +73,18 @@ const useOrderForm = () => {
 
     try {
       const response = await createOrder(order);
-      toast.success(`Pedido confirmado! Nº do pedido: ${response.orderId}. Tempo estimado: ${response.estimatedTime} minutos.`);
-      dispatch(resetOrder());
+      toast.success(`Pedido confirmado! Nº do pedido: ${response.id}. Tempo estimado: ${response.prevision} minutos.`);
+      dispatch(setId(response.id));
     } catch (error) {
       toast.error("Erro ao realizar o pedido. Tente novamente.");
     }
   };
+
+  const returnHome = () => {
+    dispatch(resetOrder());
+    navigate('/');
+  }
+
 
   return {
     sizeValue,
@@ -97,7 +104,9 @@ const useOrderForm = () => {
     setStep,
     isNextButtonDisabled,
     calculateTotal,
-    onSubmit
+    onSubmit,
+    id,
+    returnHome
   };
 };
 
