@@ -21,13 +21,19 @@ const CloseOrder: React.FC<CloseOrderProps> = ({ sizeValue, fruitValue, toppings
     4: "Morango",
   };
 
-  const toppingNames: { [key: string]: number } = {
+  const toppingValues: { [key: string]: number } = {
     granola: 3,
     pacoca: 5,
     "leite-ninho": 4,
   };
 
-  const totalToppingsPrice = toppings.reduce((total, topping) => total + toppingNames[topping], 0);
+  const toppingNames: { [key: string]: string } = {
+    granola: "Granola",
+    pacoca: "Paçoca",
+    "leite-ninho": "Leite Ninho",
+  };
+
+  const totalToppingsPrice = toppings.reduce((total, topping) => total + toppingValues[topping], 0);
   const total = (sizeValue || 0) + (fruitValue || 0) + totalToppingsPrice;
 
   return (
@@ -38,18 +44,18 @@ const CloseOrder: React.FC<CloseOrderProps> = ({ sizeValue, fruitValue, toppings
         <div className="details">
           <div>
             <img 
-              style={{borderRadius: '8px'}} 
+              style={{borderRadius: "8px"}} 
               width="150px" 
               alt="Imagem de açaí"
               src="https://th.bing.com/th/id/R.d2db326f6c0983424422b5a65e24852b?rik=8UdmbnRFw%2bkNyg&pid=ImgRaw&r=0"
             />
           </div>
-          <div style={{margin: '0px 15px'}}>
+          <div style={{margin: "0px 15px"}}>
             <p>1 item</p>
             <h3>Açai Natural</h3>
             <p>- {sizeValue ? sizeNames[sizeValue] : "Nenhum selecionado"}</p>
             <p>- {fruitValue ? fruitNames[fruitValue] : "Nenhuma selecionada"}</p>
-            <p>- {toppings.length > 0 ? toppings.join(", ") : "Nenhum selecionado"}</p>
+            <p>- {toppings.length > 0 ? toppings.map(t => toppingNames[t]).join(", ") : "Nenhum selecionado"}</p>
           </div>
           <div className="number-order">
             <p>Número do pedido</p>
