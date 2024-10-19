@@ -82,7 +82,7 @@ const useOrderForm = () => {
 
   const returnHome = () => {
     dispatch(resetOrder());
-    navigate('/');
+    navigate("/");
   }
 
 
